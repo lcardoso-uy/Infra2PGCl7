@@ -4,7 +4,7 @@ resource "aws_vpc" "Main" {                # usamos el bloque "resource", el "pr
  cidr_block       = var.main_vpc_cidr     # le pasamos por variable el CIDR block que quiero que use
  instance_tenancy = "default"
  tags = {
- Name = "My_VPC"
+ Name = "My_VPC_IL"
  }
 }
 # ==================================================================
@@ -12,7 +12,7 @@ resource "aws_vpc" "Main" {                # usamos el bloque "resource", el "pr
 resource "aws_internet_gateway" "IGW" {    # Internet Gateway
  vpc_id =  aws_vpc.Main.id               # vamos a conocer el vpc_id solo cuando el VPC se haya creado
  tags = {
- Name = "IGW"
+ Name = "IGW_IL"
  }
 }
 # ==================================================================
@@ -21,7 +21,7 @@ resource "aws_subnet" "public_subnets" {    # creamos las subnets públicas
  vpc_id =  aws_vpc.Main.id
  cidr_block = var.public_subnets        # CIDR block para mis public subnets
  tags = {
- Name = "Public Subnet"
+ Name = "Public Subnet IL"
  }
 }
 # ==================================================================
@@ -30,7 +30,7 @@ resource "aws_subnet" "private_subnets" {
  vpc_id =  aws_vpc.Main.id
  cidr_block = var.private_subnets          # CIDR block para mis subnets privadas
  tags = {
-   Name = "Private Subnet"
+   Name = "Private Subnet IL"
  }
 }
 # ==================================================================
@@ -42,7 +42,7 @@ resource "aws_route_table" "Public_RT" {    # Creamos nuestro Route Table para l
    gateway_id = aws_internet_gateway.IGW.id
  }
  tags = {
-   Name = "Tabla de Ruteo Pública"
+   Name = "Tabla de Ruteo Pública IL"
  }
 }
 # ==================================================================
@@ -54,7 +54,7 @@ resource "aws_route_table" "Private_RT" {    # Creating RT for Private Subnet
    nat_gateway_id = aws_nat_gateway.NAT_GW.id
  }
  tags = {
- Name = "Tabla de Ruteo Privada"
+ Name = "Tabla de Ruteo Privada IL"
  }
 }
 # ==================================================================
@@ -72,7 +72,7 @@ resource "aws_route_table_association" "Private_RT_Association" {
 resource "aws_eip" "NAT_EIP" {
  vpc   = true
  tags = {
- Name = "NAT con elastic IP"
+ Name = "NAT con elastic IP IL"
  }
 }
 # ==================================================================
@@ -81,6 +81,6 @@ resource "aws_nat_gateway" "NAT_GW" {
  allocation_id = aws_eip.NAT_EIP.id
  subnet_id = aws_subnet.public_subnets.id
  tags = {
-   Name = "NAT Gateway alocada a la subnet pública"
+   Name = "NAT Gateway alocada a la subnet pública IL"
  }
 }
